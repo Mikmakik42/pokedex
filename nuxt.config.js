@@ -16,20 +16,26 @@ export default {
     ]
   },
 
+  loading: { color: '#0075BE' },
+
+  publicRuntimeConfig: {
+    pokemonApiUrl: process.env.API_POKEMON_URL
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/scss/main.scss'
   ],
   styleResources: {
     scss: [
-      '~/assets/scss/utils/_colors.scss',
-      '~/assets/scss/utils/_placeholders.scss'
+      '~/assets/scss/utils/_lib.scss'
     ]
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/vuei18n.ts'
+    '~/plugins/vuei18n.ts',
+    '~/plugins/api.ts'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

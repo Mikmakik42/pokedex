@@ -1,0 +1,9 @@
+%base-container {
+  padding: $defaut-y-gutter $defaut-x-gutter;
+  display: flex;
+  flex-direction: column;
+  max-width: 87.5rem;
+  margin: 0 auto;
+  width: 100%;
+  align-items: center;
+}

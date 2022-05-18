@@ -1,0 +1,196 @@
+%pokemon-button {
+  @extend %base-button;
+  border: 2px solid;
+  text-transform: uppercase;
+
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    border-radius: $base-button-x-padding * 2;
+    content: '';
+  }
+}
+
+%pokemon-button--normal {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-normal,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--fighting {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-fighting,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--flying {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-flying,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--poison {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-poison,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--ground {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-ground,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--rock {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-rock,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--bug {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-bug,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--ghost {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-ghost,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--steel {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-steel,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--fire {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-fire,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--water {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-water,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--grass {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-grass,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--electric {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-electric,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--psychic {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-psychic,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--ice {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-ice,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--dragon {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-dragon,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--dark {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-dark,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--fairy {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-fairy,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--unknown {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-unknown,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}
+
+%pokemon-button--shadow {
+  @extend %pokemon-button;
+  @include button-style(
+    $color: $color-shadow,
+    $background-color: $color-white,
+    $is-pokemon-type: true
+  )
+}

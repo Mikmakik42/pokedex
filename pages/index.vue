@@ -8,39 +8,50 @@
       :alt="$t('index.title')"
       class="homepage__logo"
     />
+    <BaseButton
+      v-for="type in pokemonTypes"
+      :key="type.name"
+      :pokemon-type="type.name"
+    >
+      {{ type.name }}
+    </BaseButton>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { mapGetters } from 'vuex';
+import BaseButton from '~/components/BaseButton.vue';
 
-export default Vue.extend({
+export default{
   name: 'Homepage',
-  layout: 'default',
-})
+  components: {
+    BaseButton,
+  },
+  computed: {
+    ...mapGetters({
+      pokemonTypes: 'types',
+    }),
+  },
+};
 </script>
 
 <style lang="scss">
 .homepage {
+  @extend %base-container;
+
   &__title {
     @extend %sr-only;
   }
 
   &__logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
+    width: 100%;
+    max-width: 600px;
   }
 }
 </style>
 
-<i18n>
-{
-  "fr": {
-    "index": {
-      "title": "Pokédex"
-    }
-  }
-}
+<i18n lang="yaml">
+fr:
+  index:
+    title: 'Pokédex'
 </i18n>

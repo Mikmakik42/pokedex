@@ -1,0 +1,48 @@
+/// @param {color} $color
+/// @param {color} $background-color
+/// @param {bool} $is-pokemon-type
+/// @param {string} $block-selector
+@mixin button-style(
+  $color,
+  $background-color,
+  $is-pokemon-type: false,
+  $block-selector: $base-button-block-selector,
+) {
+  background-color: $background-color;
+  color: $color;
+
+  @if $is-pokemon-type == true {
+    border-color: $color;
+
+    &:after {
+      background-color: $color;
+    }
+
+    &:hover,
+    &#{$block-selector}--hovered,
+    &:active,
+    &#{$block-selector}--active {
+      color: $background-color;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  } @else {
+    &:hover,
+    &#{$block-selector}--hovered {
+      opacity: 80%;
+    }
+
+    &:focus,
+    &#{$block-selector}--focused {
+      // Add your custom styles here
+    }
+
+    &:disabled,
+    &[disabled],
+    &#{$block-selector}--disabled {
+      // Add your custom styles here
+    }
+  }
+}

@@ -1,4 +1,9 @@
-$color-background: #F5F5F5;
+// Generic colors
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+$color-pokemon-blue: #0075BE;
+$color-pokemon-yellow: #FFCC00;
 
 // Pokemon types colors
 $color-normal: #A8A878;
@@ -19,5 +24,10 @@ $color-ice: #98D8D8;
 $color-dragon: #7038F8;
 $color-dark: #705848;
 $color-fairy: #EE99AC;
-$color-unknow: #68A090;
-$color-shadow: '';
+$color-unknown: #68A090;
+$color-shadow: $color-black;
+
+// Theme colors
+$color-background: #F5F5F5;
+$color-primary: $color-pokemon-blue;
+$color-secondary: $color-pokemon-yellow;

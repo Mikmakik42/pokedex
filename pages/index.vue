@@ -8,13 +8,15 @@
       :alt="$t('index.title')"
       class="homepage__logo"
     />
-    <BaseButton
-      v-for="type in pokemonTypes"
-      :key="type.name"
-      :pokemon-type="type.name"
-    >
-      {{ type.name }}
-    </BaseButton>
+    <div class="homepage__button-grid">
+      <BaseButton
+        v-for="type in pokemonTypes"
+        :key="type.name"
+        :pokemon-type="type.name"
+      >
+        {{ type.name }}
+      </BaseButton>
+    </div>
   </div>
 </template>
 
@@ -46,6 +48,15 @@ export default{
   &__logo {
     width: 100%;
     max-width: 600px;
+    margin-bottom: 4rem;
+  }
+
+  &__button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3rem 1rem;
+    column-gap: 1rem;
+    row-gap: 1rem;
   }
 }
 </style>

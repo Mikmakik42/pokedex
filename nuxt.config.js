@@ -28,7 +28,7 @@ export default {
   ],
   styleResources: {
     scss: [
-      '~/assets/scss/utils/_lib.scss'
+      '~/assets/scss/utils/_utils.scss'
     ]
   },
 

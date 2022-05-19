@@ -13,10 +13,10 @@
   cursor: pointer;
   position: relative;
   font-size: 1rem;
+  user-select: none;
 
   &,
   &:after {
-    transition-duration: $default-transition-duration;
     transition-timing-function: ease-out;
     transition-property:
       color,
@@ -27,6 +27,7 @@
   span {
     position: relative;
     z-index: 1;
+    border-radius: $base-button-x-padding * 2;
   }
 }
 

@@ -11,6 +11,11 @@
   background-color: $background-color;
   color: $color;
 
+  &:hover,
+  &#{$block-selector}--hovered {
+    opacity: 50%;
+  }
+
   @if $is-pokemon-type == true {
     border-color: $color;
 
@@ -18,8 +23,6 @@
       background-color: $color;
     }
 
-    &:hover,
-    &#{$block-selector}--hovered,
     &:active,
     &#{$block-selector}--active {
       color: $background-color;
@@ -29,11 +32,6 @@
       }
     }
   } @else {
-    &:hover,
-    &#{$block-selector}--hovered {
-      opacity: 80%;
-    }
-
     &:focus,
     &#{$block-selector}--focused {
       // Add your custom styles here

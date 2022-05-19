@@ -1,6 +1,8 @@
 // Generic colors
 $color-white: #FFFFFF;
 $color-black: #000000;
+$color-gray-black: #212121;
+$color-egg-shell: #F5F5F5;
 
 $color-pokemon-blue: #0075BE;
 $color-pokemon-yellow: #FFCC00;
@@ -28,6 +30,7 @@ $color-unknown: #68A090;
 $color-shadow: $color-black;
 
 // Theme colors
-$color-background: #F5F5F5;
+$color-background: $color-egg-shell;
 $color-primary: $color-pokemon-blue;
 $color-secondary: $color-pokemon-yellow;
+$color-font: $color-gray-black;

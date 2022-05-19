@@ -22,7 +22,6 @@ export const mutations: MutationTree<RootState> = {
 export const actions: ActionTree<RootState, RootState> = {
   async nuxtServerInit({ commit }) {
     const types = await this.$api.pokemon.getTypes();
-    console.log(types);
     commit('setTypes', types);
   },
 }

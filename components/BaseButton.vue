@@ -21,7 +21,7 @@ const BLOCK_SELECTOR = 'base-button';
 export default Vue.extend({
   name: 'BaseButton',
   props: {
-    to: { type: Object, default: null },
+    to: { type: String, default: null },
     href: { type: String, default: null },
     pokemonType: { type: String, default: null },
     disabled: Boolean,
@@ -31,8 +31,8 @@ export default Vue.extend({
      * If type is link or there's href return null, else return the type, or button by default
      * @return {string | null}
      */
-    typeAttr(): string {
-      return ButtonTypes.NUXT_LINK;
+    typeAttr(): string|null {
+      return null;
     },
     tag(): string {
       if (this.href) {
@@ -56,7 +56,7 @@ export default Vue.extend({
       return {
         type: this.typeAttr,
         class: this.classList,
-        href: this.href,
+        href: this.href ?? this.to,
         to: this.to,
         disabled: this.disabled,
       };

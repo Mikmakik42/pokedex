@@ -1,0 +1,39 @@
+.icon-burger {
+  $block-selector: &;
+  width: 2rem;
+  height: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &__bar {
+    height: 2px;
+    background-color: $color-gray-black;
+    width: 100%;
+    display: block;
+    transition: $default-transition-duration;
+    transition-property: opacity, transform;
+
+    &--top,
+    &--bottom {
+      transform-origin: left;
+    }
+  }
+
+  &--cross {
+    #{$block-selector}__bar {
+      &--middle {
+        opacity: 0;
+      }
+
+      &--top {
+        transform: rotate(45deg);
+      }
+
+      &--bottom {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

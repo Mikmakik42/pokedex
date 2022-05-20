@@ -19,6 +19,7 @@ export default {
   loading: { color: '#0075BE' },
 
   publicRuntimeConfig: {
+    baseUrl: process.env.BASE_URL,
     pokemonApiUrl: process.env.API_POKEMON_URL
   },
 
@@ -52,19 +53,23 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    [
-      '@nuxtjs/i18n',
-      {
-        locales: ['fr'],
-        defaultLocale: 'fr',
-        vueI18n: {
-          fallbackLocale: 'fr'
-        },
-        vueI18nLoader: true,
-        strategy: 'no_prefix'
-      }
-    ]
+    '@nuxtjs/i18n',
   ],
+
+  i18n: {
+    locales: [
+      { code: 'en', iso: 'en-US', file: 'en-US.js' },
+      { code: 'fr', iso: 'fr-FR', file: 'fr-FR.js' }
+    ],
+    baseUrl: process.env.BASE_URL,
+    langDir: 'lang/',
+    defaultLocale: 'fr',
+    vueI18n: {
+      fallbackLocale: 'fr'
+    },
+    vueI18nLoader: true,
+    strategy: 'prefix_except_default'
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

@@ -7,7 +7,10 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        name: 'viewport',
+        content: 'height=device-height, width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover'
+      },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
@@ -57,6 +60,7 @@ export default {
   ],
 
   i18n: {
+    vueI18nLoader: true,
     locales: [
       { code: 'en', iso: 'en-US', file: 'en-US.js' },
       { code: 'fr', iso: 'fr-FR', file: 'fr-FR.js' }
@@ -67,7 +71,6 @@ export default {
     vueI18n: {
       fallbackLocale: 'fr'
     },
-    vueI18nLoader: true,
     strategy: 'prefix_except_default'
   },
 

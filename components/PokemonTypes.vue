@@ -18,10 +18,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from "vuex";
 import Vue from 'vue';
-import BaseButton from '~/components/BaseButton';
+import BaseButton from '~/components/BaseButton.vue';
 import RoutesName from '~/utils/RoutesName';
 
 const BLOCK_SELECTOR = 'pokemon-types'
@@ -56,7 +56,6 @@ export default Vue.extend({
 .pokemon-types {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 3rem 1rem;
   column-gap: 1rem;
   row-gap: 1rem;
 }

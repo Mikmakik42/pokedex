@@ -10,7 +10,7 @@
         class="homepage__logo"
       />
     </nuxt-link>
-    <pokemon-types />
+    <pokemon-types class="homepage__pokemon-types" />
   </div>
 </template>
 
@@ -43,6 +43,10 @@ export default {
     width: 100%;
     max-width: 600px;
     margin-bottom: 4rem;
+  }
+
+  &__pokemon-types {
+    padding: 3rem 1rem;
   }
 }
 </style>

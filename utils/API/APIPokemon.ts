@@ -3,6 +3,7 @@ import { NuxtRuntimeConfig } from '@nuxt/types/config/runtime';
 import PokemonTypeResponse from '~/models/PokemonTypeResponse';
 import PokemonResponse from '~/models/PokemonResponse';
 import PokemonType from "~/types/pokemon-types";
+import BasicResponse from "~/models/BasicResponse";
 
 class APIPokemon {
   private $axios: NuxtAxiosInstance;
@@ -23,7 +24,17 @@ class APIPokemon {
     return data.pokemon;
   }
 
-  async getAllPokemons(): Promise<PokemonResponse[]> {
+  async getAllPokemonSpecies(): Promise<BasicResponse[]> {
+    const { data } = await this.$axios.get('https://pokeapi.co/api/v2/pokemon-species');
+    return data.results;
+  }
+
+  async getPokemonSpecies(pokemonName: string): Promise<Object> {
+    const { data } = await this.$axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`);
+    return data;
+  }
+
+  async getAllPokemons(): Promise<BasicResponse[]> {
     const { data } = await this.$axios.get('https://pokeapi.co/api/v2/pokemon');
     return data.results;
   }

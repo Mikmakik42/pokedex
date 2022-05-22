@@ -22,8 +22,8 @@
       <loader v-show="$fetchState.pending" class="pokemon-list__loader" />
       <pokemon-card
         v-for="pokemon in pokemons"
-        :key="pokemon.name"
-        :pokemon-name="pokemon.name"
+        :key="pokemon"
+        :pokemon-name="pokemon"
       />
     </template>
   </div>
@@ -38,7 +38,6 @@ import RoutesName from '~/utils/RoutesName';
 import PokemonTypes from "~/components/PokemonTypes.vue";
 import Loader from "~/components/Loader.scss.vue";
 import PokemonType from "~/types/pokemon-types";
-import PokemonTypeResponse from "~/models/PokemonTypeResponse";
 import PokemonCard from "~/components/PokemonCard.vue";
 
 const BLOCK_SELECTOR = 'pokemon-list';

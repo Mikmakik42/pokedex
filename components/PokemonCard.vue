@@ -2,7 +2,7 @@
   <div class="pokemon-card">
     <p>{{ pokemonLocaleName }}</p>
     <loader v-show="$fetchState.pending"/>
-    <template v-show="!$fetchState.pending">
+    <template v-if="!$fetchState.pending && pokemon">
       <img :src="pokemon.sprites.front_default" alt="">
     </template>
   </div>

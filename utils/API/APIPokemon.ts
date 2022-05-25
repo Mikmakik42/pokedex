@@ -34,9 +34,9 @@ class APIPokemon {
     return data;
   }
 
-  async getAllPokemons(): Promise<BasicResponse[]> {
-    const { data } = await this.$axios.get('https://pokeapi.co/api/v2/pokemon');
-    return data.results;
+  async getAllPokemons(query: string|null = null): Promise<Object> {
+    const { data } = await this.$axios.get(`https://pokeapi.co/api/v2/pokemon${query}`);
+    return data;
   }
 
   async getPokemon(pokemonName: string): Promise<Object> {

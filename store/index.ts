@@ -1,5 +1,4 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import BasicResponse from '~/models/BasicResponse';
 import PokemonType from "~/types/pokemon-types";
 
 export const state = () => ({
@@ -22,9 +21,12 @@ export const mutations: MutationTree<RootState> = {
   setTypes(state, types: PokemonType[]): void {
     state.types = types
   },
-  setPokemons(state, pokemons: string[]) {
-    state.pokemons = pokemons
+  resetPokemons(state) {
+    state.pokemons = [];
   },
+  addPokemons(state, pokemons: string[]) {
+    state.pokemons = [...state.pokemons, ...pokemons];
+  }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -32,13 +34,4 @@ export const actions: ActionTree<RootState, RootState> = {
     const types = await this.$api.pokemon.getTypes();
     commit('setTypes', types.map(item => item.name));
   },
-  async fetchPokemonsByType({ commit }, type: PokemonType): Promise<void> {
-    const pokemons = await this.$api.pokemon.getPokemonsByType(type);
-    console.log(pokemons);
-    commit('setPokemons', pokemons.map(item => item.pokemon));
-  },
-  async fetchAllPokemons({ commit }): Promise<void> {
-    const pokemons = await this.$api.pokemon.getAllPokemons();
-    commit('setPokemons', pokemons.map(item => item.name));
-  }
 }

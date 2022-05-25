@@ -2,11 +2,13 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import PokemonType from "~/types/pokemon-types";
 
 const LIMIT = 20;
-export const state = () => ({
+const getDefaultState = () => ({
   page: 0 as number,
   typedPokemons: [] as string[],
   pokemonCount: 0 as number,
 })
+
+export const state = getDefaultState;
 
 export type RootState = ReturnType<typeof state>
 
@@ -32,30 +34,45 @@ export const mutations: MutationTree<RootState> = {
   setPokemonCount(state, count: number) {
     state.pokemonCount = count;
   },
+  resetState(state) {
+    state = { ...getDefaultState() };
+  }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async initializePokemonPagination({ commit }, pokemons: string[] = []) {
-    commit('setTypedPokemons', pokemons);
-    commit('initializePage');
-    if (pokemons.length > 0) {
-      const pokemonsToCommit = pokemons.slice(0, LIMIT);
-      //TODO: commit pokemon on index store
+  async fetchPokemons(
+    { commit, dispatch, state, getters },
+    { type, firstPage }: { type: PokemonType, firstPage: Boolean }
+  ) {
+    if (type) {
+      if (firstPage) {
+        commit('initializePage');
+        const pokemons = await this.$api.pokemon.getPokemonsByType(type);
+        commit('setTypedPokemons', pokemons.map(item => item.pokemon.name));
+      }
+      if (state.typedPokemons && getters.currentOffset + LIMIT < state.typedPokemons.length) {
+        const pokemonsToCommit = state.typedPokemons.slice(
+          getters.currentOffset, getters.currentOffset + LIMIT
+        );
+        commit('addPokemons', pokemonsToCommit, { root: true });
+        commit('incrementPage');
+      }
     } else {
-      //TODO: make request to get all pokemons with correct limit
-      //TODO: store request pokemon in count in store
+      if (firstPage) {
+        commit('initializePage');
+        const data = await this.$api.pokemon.getAllPokemons(getters.nextPageQuery);
+        commit('setPokemonCount', data.count);
+        commit('addPokemons', data.results.map(item => item.name), { root: true });
+        commit('incrementPage');
+      } else if (state.pokemonCount && getters.currentOffset + LIMIT < state.pokemonCount) {
+        const { results } = await this.$api.pokemon.getAllPokemons(getters.nextPageQuery);
+        commit('addPokemons', results.map(item => item.name), { root: true });
+        commit('incrementPage');
+      }
     }
   },
-  async getNextPage({ state, commit, getters }) {
-    if (state.typedPokemons && getters.currentOffset + LIMIT < state.typedPokemons.length) {
-      const pokemonToCommit = state.typedPokemons.slice(
-        getters.currentOffset, getters.currentOffset + LIMIT
-      );
-      //TODO: commit pokemon on index store
-      commit('incrementPage');
-    } else if (state.pokemonCount && getters.currentOffset + LIMIT < state.pokemonCount) {
-      //TODO: make request to get all next pokemons with nextPage query
-      commit('incrementPage');
-    }
-  }
+  resetPokemons({ commit }) {
+    commit('resetState');
+    commit('resetPokemons', null, { root: true });
+  },
 }

@@ -51,16 +51,14 @@ export default Vue.extend({
   },
   async fetch(): Promise<void> {
    this.type = this.$route.query.type as PokemonType|undefined;
-   if (this.type) {
-     await this.fetchPokemonsByType(this.type);
-   } else {
-     await this.fetchPokemons();
-   }
+   await this.fetchPokemons({ type: this.type, firstPage: this.firstPage});
+   this.firstPage = false;
   },
   data: () => ({
     RoutesName,
     type: undefined as PokemonType|undefined,
     openMenu: false as Boolean,
+    firstPage: true as Boolean
   }),
   computed: {
     ...mapGetters({
@@ -91,10 +89,22 @@ export default Vue.extend({
       ];
     },
   },
+  watch: {
+    '$route.query': {
+      handler() {
+        //TODO: Add scroll to top
+        this.firstPage = true;
+        this.resetPokemons();
+        this.$fetch();
+      },
+      deep: true,
+      immediate: true,
+    }
+  },
   methods: {
     ...mapActions({
-      fetchPokemonsByType: 'fetchPokemonsByType',
-      fetchPokemons: 'fetchAllPokemons',
+      fetchPokemons: 'pagination/fetchPokemons',
+      resetPokemons: 'pagination/resetPokemons',
     }),
   },
   nuxtI18n: {

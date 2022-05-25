@@ -2,18 +2,18 @@
   <div :class="classList">
     <base-button
       v-for="type in pokemonTypes"
-      :key="type.name"
-      :pokemon-type="type.name"
+      :key="type"
+      :pokemon-type="type"
       :to="
           localePath({
             name: RoutesName.POKEMONS,
             query: {
-              type: type.name,
+              type: type,
             }
           })
         "
     >
-      {{ $t(`pokemon_types.${type.name}`) }}
+      {{ $t(`pokemon_types.${type}`) }}
     </base-button>
   </div>
 </template>
@@ -23,6 +23,7 @@ import { mapGetters } from "vuex";
 import Vue from 'vue';
 import BaseButton from '~/components/BaseButton.vue';
 import RoutesName from '~/utils/RoutesName';
+import pokemonResponse from "~/models/PokemonResponse";
 
 const BLOCK_SELECTOR = 'pokemon-types'
 export default Vue.extend({

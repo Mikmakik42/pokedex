@@ -6,6 +6,7 @@ const getDefaultState = () => ({
   page: 0 as number,
   typedPokemons: [] as string[],
   pokemonCount: 0 as number,
+  fetchStatus: true as boolean,
 })
 
 export const state = getDefaultState;
@@ -17,7 +18,10 @@ export const getters: GetterTree<RootState, RootState> = {
     return `?limit=${LIMIT}&offset=${LIMIT * state.page}`;
   },
   currentOffset(state): number {
-    return state.page * LIMIT
+    return state.page * LIMIT;
+  },
+  canFetch(state): boolean {
+    return state.fetchStatus;
   }
 }
 
@@ -33,6 +37,12 @@ export const mutations: MutationTree<RootState> = {
   },
   setPokemonCount(state, count: number) {
     state.pokemonCount = count;
+  },
+  startFetching(state) {
+    state.fetchStatus = true;
+  },
+  stopFetching(state) {
+    state.fetchStatus = false;
   },
   resetState(state) {
     state = { ...getDefaultState() };
@@ -56,6 +66,8 @@ export const actions: ActionTree<RootState, RootState> = {
         );
         commit('addPokemons', pokemonsToCommit, { root: true });
         commit('incrementPage');
+      } else {
+        commit('stopFetching');
       }
     } else {
       if (firstPage) {
@@ -68,10 +80,13 @@ export const actions: ActionTree<RootState, RootState> = {
         const { results } = await this.$api.pokemon.getAllPokemons(getters.nextPageQuery);
         commit('addPokemons', results.map(item => item.name), { root: true });
         commit('incrementPage');
+      } else {
+        commit('stopFetching');
       }
     }
   },
   resetPokemons({ commit }) {
+    commit('startFetching');
     commit('resetState');
     commit('resetPokemons', null, { root: true });
   },

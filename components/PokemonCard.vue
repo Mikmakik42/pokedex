@@ -1,8 +1,8 @@
 <template>
   <div class="pokemon-card">
-    <p>{{ pokemonLocaleName }}</p>
     <loader v-show="$fetchState.pending"/>
-    <template v-if="!$fetchState.pending && pokemon">
+    <template v-if="!$fetchState.pending && pokemon && pokemonSpecies">
+      <p>{{ pokemonLocaleName }}</p>
       <img :src="pokemon.sprites.front_default" alt="">
     </template>
   </div>
@@ -40,5 +40,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+.pokemon-card {
 
+}
 </style>

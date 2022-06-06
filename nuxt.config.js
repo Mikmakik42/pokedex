@@ -62,8 +62,8 @@ export default {
   i18n: {
     vueI18nLoader: true,
     locales: [
-      { code: 'en', iso: 'en-US', file: 'en-US.js' },
-      { code: 'fr', iso: 'fr-FR', file: 'fr-FR.js' }
+      { code: 'en', iso: 'en-US', file: 'en-US.ts' },
+      { code: 'fr', iso: 'fr-FR', file: 'fr-FR.ts' }
     ],
     baseUrl: process.env.BASE_URL,
     langDir: 'lang/',

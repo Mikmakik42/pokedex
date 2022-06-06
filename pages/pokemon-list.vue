@@ -19,12 +19,14 @@
       <pokemon-types />
     </div>
     <template>
-      <loader v-show="$fetchState.pending" class="pokemon-list__loader" />
       <pokemon-card
         v-for="pokemon in pokemons"
-        :key="pokemon.name"
-        :pokemon-name="pokemon.name"
+        :key="pokemon"
+        :pokemon-name="pokemon"
       />
+      <div class="pokemon-list__loader" v-observe-visibility="$fetch">
+        <loader v-show="canFetch" />
+      </div>
     </template>
   </div>
 </template>
@@ -33,12 +35,12 @@
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import { LocaleMessage } from 'vue-i18n';
+import { ObserveVisibility } from 'vue-observe-visibility';
 import BaseButton from '~/components/BaseButton.vue';
 import RoutesName from '~/utils/RoutesName';
 import PokemonTypes from "~/components/PokemonTypes.vue";
 import Loader from "~/components/Loader.scss.vue";
 import PokemonType from "~/types/pokemon-types";
-import PokemonTypeResponse from "~/models/PokemonTypeResponse";
 import PokemonCard from "~/components/PokemonCard.vue";
 
 const BLOCK_SELECTOR = 'pokemon-list';
@@ -50,22 +52,25 @@ export default Vue.extend({
     PokemonTypes,
     BaseButton,
   },
+  directives: {
+    ObserveVisibility,
+  },
   async fetch(): Promise<void> {
    this.type = this.$route.query.type as PokemonType|undefined;
-   if (this.type) {
-     await this.fetchPokemonsByType(this.type);
-   } else {
-     await this.fetchPokemons();
-   }
+   if (this.canFetch)
+   await this.fetchPokemons({ type: this.type, firstPage: this.firstPage});
+   this.firstPage = false;
   },
   data: () => ({
     RoutesName,
     type: undefined as PokemonType|undefined,
     openMenu: false as Boolean,
+    firstPage: true as Boolean
   }),
   computed: {
     ...mapGetters({
       pokemons: 'pokemons',
+      canFetch: 'pagination/canFetch',
     }),
     title(): LocaleMessage {
       return !this.type
@@ -92,10 +97,24 @@ export default Vue.extend({
       ];
     },
   },
+  watch: {
+    '$route.query': {
+      handler(to, from) {
+        if (from !== undefined) {
+          //TODO: Add scroll to top
+        }
+        this.firstPage = true;
+        this.resetPokemons();
+        this.$fetch();
+      },
+      deep: true,
+      immediate: true,
+    }
+  },
   methods: {
     ...mapActions({
-      fetchPokemonsByType: 'fetchPokemonsByType',
-      fetchPokemons: 'fetchAllPokemons',
+      fetchPokemons: 'pagination/fetchPokemons',
+      resetPokemons: 'pagination/resetPokemons',
     }),
   },
   nuxtI18n: {
@@ -128,7 +147,7 @@ export default Vue.extend({
     padding: 2rem;
 
     &--closed {
-      transform: translateX(-100%);
+      transform: translateX(-80%);
     }
   }
 
@@ -142,6 +161,7 @@ export default Vue.extend({
   }
 
   &__loader {
+    padding: 2rem 0;
     margin: auto;
   }
 }

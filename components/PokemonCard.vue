@@ -1,8 +1,8 @@
 <template>
   <div class="pokemon-card">
-    <p>{{ pokemonName }}</p>
     <loader v-show="$fetchState.pending"/>
-    <template v-show="!$fetchState.pending">
+    <template v-if="!$fetchState.pending && pokemon && pokemonSpecies">
+      <p>{{ pokemonLocaleName }}</p>
       <img :src="pokemon.sprites.front_default" alt="">
     </template>
   </div>
@@ -19,14 +19,28 @@ export default Vue.extend({
     pokemonName: { type: String, required: true },
   },
   async fetch() {
+    this.pokemonSpecies = await this.$api.pokemon.getPokemonSpecies(this.pokemonName);
     this.pokemon = await this.$api.pokemon.getPokemon(this.pokemonName);
   },
   data: () => ({
-    pokemon: undefined as Object|undefined,
-  })
+    pokemonSpecies: undefined as object|undefined,
+    pokemon: undefined as object|undefined,
+  }),
+  computed: {
+    pokemonLocaleName(): string {
+      if (this.pokemonSpecies) {
+        return this.pokemonSpecies.names.find(
+          (name: object) => name.language.name === this.$i18n.locale
+        ).name;
+      }
+      return '';
+    },
+  },
 });
 </script>
 
 <style scoped lang="scss">
+.pokemon-card {
 
+}
 </style>
